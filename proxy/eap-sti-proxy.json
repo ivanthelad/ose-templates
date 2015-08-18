@@ -307,12 +307,12 @@
                                 },
                                 "ports": [
                                     {
-                                        "name": "${APPLICATION_NAME}-tcp-8080",
+                                        "name": "tcp-8080",
                                         "containerPort": 8080,
                                         "protocol": "TCP"
                                     },
                                     {
-                                        "name": "${APPLICATION_NAME}-ping-8888",
+                                        "name": "ping-8888",
                                         "containerPort": 8888,
                                         "protocol": "TCP"
                                     }
