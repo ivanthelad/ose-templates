@@ -6,10 +6,10 @@
             "iconClass" : "icon-jboss",
             "description": "Application template for EAP 6 applications built using STI. To use a proxy bundle custome assemble script https://github.com/ivanthelad/openshift-jee-sample/blob/master/.sti/bin/assemble"
         },
-        "name": "eap6-basic-sti-proxy"
+        "name": "eap6-binary"
     },
     "labels": {
-        "template": "eap6-basic-sti-proxy"
+        "template": "eap6-binary"
     },
     "parameters": [
         {
@@ -171,7 +171,7 @@
                     "git": {
                         "uri": "${GIT_URI}",
                         "ref": "${GIT_REF}"
-               
+
 
                     },
                     "contextDir":"${GIT_CONTEXT_DIR}"
@@ -186,20 +186,8 @@
                         },
                  "env": [
                     {
-                        "name": "CUSTOM_PROXY_HOST",
-                        "value": "${CUSTOM_PROXY_HOST}"
-                    },
-                    {
-                        "name": "CUSTOM_PROXY_PORT",
-                        "value": "${CUSTOM_PROXY_PORT}"
-                    },
-                      {
-                        "name": "CUSTOM_PROXY_USER",
-                        "value": "${CUSTOM_PROXY_USER}"
-                    },
-                    {
-                        "name": "CUSTOM_PROXY_PASSWORD",
-                        "value": "${CUSTOM_PROXY_PASSWORD}"
+                        "name": "BINARY_URL",
+                        "value": "${BINARY_URL}"
                     },
                     {
                         "name": "MAVEN_ARGS",
