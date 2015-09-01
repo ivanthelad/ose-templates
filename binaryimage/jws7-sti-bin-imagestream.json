@@ -1,0 +1,22 @@
+    {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "jws-binary-sti22"
+            },
+            "spec": {
+                "dockerImageRepository": "docker.io/ivanthelad/jws-binary-sti",
+                "tags": [
+                    {
+                        "name": "1.0",
+                        "annotations": {
+                            "description": "From bin. JBoss Web Server v3 Tomcat 7 STI images.",
+                            "iconClass": "icon-jboss",
+                            "tags": "java",
+                            "supports":"tomcat7:3.0,java",
+                            "version": "3.0"
+                        }
+                    }
+                ]
+            }
+        }
