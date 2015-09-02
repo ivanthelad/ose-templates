@@ -6,10 +6,10 @@
             "description": "Application template for EAP 6 MySQL applications built using STI.",
             "iconClass" : "icon-jboss"
         },
-        "name": "eap6-binary-mysql-sti"
+        "name": "workshop-eap6-binary-mysql-sti"
     },
     "labels": {
-        "template": "eap6-binary-mysql-sti"
+        "template": "workshop-eap6-binary-mysql-sti"
     },
     "parameters": [
         {
