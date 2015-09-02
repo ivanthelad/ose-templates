@@ -6,10 +6,10 @@
             "iconClass" : "icon-jboss",
             "description": "Application template for EAP 6 applications built using STI. To use a proxy bundle custome assemble script https://github.com/ivanthelad/openshift-jee-sample/blob/master/.sti/bin/assemble"
         },
-        "name": "eap6-binary"
+        "name": "workshop-eap6-binary"
     },
     "labels": {
-        "template": "eap6-binary"
+        "template": "workshop-eap6-binary"
     },
     "parameters": [
         {
