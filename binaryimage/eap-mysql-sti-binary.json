@@ -340,7 +340,9 @@
                     "type": "Git",
                     "git": {
                         "uri": "${GIT_URI}",
-                        "ref": "${GIT_REF}"
+                        "ref": "${GIT_REF}",
+                            "httpProxy": "",
+                        "httpsProxy": ""
                     },
                     "contextDir":"${GIT_CONTEXT_DIR}"
                 },
