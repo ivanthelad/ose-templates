@@ -1,4 +1,40 @@
 {
+    "kind": "List",
+    "apiVersion": "v1",
+    "metadata": {},
+    "items": [
+{
+    "kind": "Service",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "simple-prod",
+        "creationTimestamp": null,
+        "labels": {
+            "app": "simple-prod"
+        }
+    },
+    "spec": {
+        "ports": [
+            {
+                "name": "default",
+                "protocol": "TCP",
+                "port": 8080,
+                "targetPort": 8080,
+                "nodePort": 0
+            }
+        ],
+        "selector": {
+            "app": "simple-prod",
+            "deploymentconfig": "simple-prod"
+        },
+        "type": "ClusterIP",
+        "sessionAffinity": "None"
+    },
+    "status": {
+        "loadBalancer": {}
+    }
+},
+{
     "kind": "DeploymentConfig",
     "apiVersion": "v1",
     "metadata": {
@@ -73,4 +109,6 @@
         }
     },
     "status": {}
+}
+    ]
 }
