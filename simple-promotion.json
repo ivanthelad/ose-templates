@@ -1,0 +1,76 @@
+{
+    "kind": "DeploymentConfig",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "simple-prod",
+        "creationTimestamp": null,
+        "labels": {
+            "app": "simple-prod"
+        }
+    },
+    "spec": {
+        "strategy": {
+            "type": "Rolling",
+            "rollingParams": {
+                "updatePeriodSeconds": 1,
+                "intervalSeconds": 1,
+                "timeoutSeconds": 600,
+                "maxUnavailable": "25%",
+                "maxSurge": "25%"
+            },
+            "resources": {}
+        },
+        "triggers": [
+            {
+                "type": "ConfigChange"
+            },
+            {
+                "type": "ImageChange",
+                "imageChangeParams": {
+                    "automatic": true,
+                    "containerNames": [
+                        "simple-prod"
+                    ],
+                    "from": {
+                        "kind": "ImageStreamTag",
+                        "name": "simple-openshift-sinatra-sti:prod"
+                    }
+                }
+            }
+        ],
+        "replicas": 1,
+        "selector": {
+            "app": "simple-prod",
+            "deploymentconfig": "simple-prod"
+        },
+        "template": {
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "simple-prod",
+                    "deploymentconfig": "simple-prod"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "simple-prod",
+                        "image": "simple-prod",
+                        "ports": [
+                            {
+                                "containerPort": 8080,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {},
+                        "terminationMessagePath": "/dev/termination-log",
+                        "imagePullPolicy": "Always"
+                    }
+                ],
+                "restartPolicy": "Always",
+                "dnsPolicy": "ClusterFirst"
+            }
+        }
+    },
+    "status": {}
+}
