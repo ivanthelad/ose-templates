@@ -69,7 +69,7 @@
                     ],
                     "from": {
                         "kind": "ImageStreamTag",
-                        "name": "simple-openshift-sinatra-sti:prod"
+                        "name": "simple-openshift-sinatra:prod"
                     }
                 }
             }
