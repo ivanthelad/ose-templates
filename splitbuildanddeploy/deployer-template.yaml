@@ -1,0 +1,132 @@
+apiVersion: v1
+kind: Template
+metadata:
+  creationTimestamp: null
+  name: deployer-template
+objects:
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      description: Defines how to deploy the application server
+    creationTimestamp: null
+    labels:
+      template: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}
+  spec:
+    replicas: 1
+    selector:
+      name: ${APPLICATION_NAME}
+    strategy:
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          name: ${APPLICATION_NAME}
+        name: ${APPLICATION_NAME}
+      spec:
+        containers:
+        - env:
+          - name: DATABASE_SERVICE_NAME
+          - name: DATABASE_ENGINE
+          - name: DATABASE_NAME
+          - name: DATABASE_USER
+          - name: DATABASE_PASSWORD
+          - name: CAKEPHP_SECRET_TOKEN
+            value: _P_oMSMM55OK9v4WLYnjBF0hhb9w8YZhul5MJv28Yltd2MJK3E
+          - name: CAKEPHP_SECURITY_SALT
+            value: VndnaQWAYuyrk2bSnlSGXIhxFFqfkLgKoKHaprrK
+          - name: CAKEPHP_SECURITY_CIPHER_SEED
+            value: "183810467175864276856827451501"
+          - name: OPCACHE_REVALIDATE_FREQ
+            value: "2"
+          image: ${NAMESPACE}/${IMAGESTREAM}:${IMAGE_TAG}
+          imagePullPolicy: IfNotPresent
+          name: ${APPLICATION_NAME}
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - ${APPLICATION_NAME}
+        from:
+          namespace: ${NAMESPACE}
+          kind: ImageStreamTag
+          name: ${IMAGESTREAM}:${IMAGE_TAG}
+      type: ImageChange
+    - type: ConfigChange
+  status: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      description: Exposes and load balances the application pods
+    creationTimestamp: null
+    labels:
+      template: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}
+  spec:
+    ports:
+    - name: web
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      name: ${APPLICATION_NAME}
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Route
+  metadata:
+    annotations:
+      openshift.io/host.generated: "true"
+    creationTimestamp: null
+    labels:
+      template: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}
+  spec:
+    host: ${URL}
+    to:
+      kind: Service
+      name: ${APPLICATION_NAME}
+  status: {}
+
+parameters:
+- description: Route to application .
+  name: URL
+  required: true
+  value: cakephp-example-test2.cloudapps.example.com
+- description:
+  name: APPLICATION_NAME
+  required: true
+  value: myapp-deploy
+- description:
+  name: IMAGESTREAM
+  required: true
+  value: myapp
+- description:
+  name: IMAGE_TAG
+  required: true
+  value: latest
+- description:
+  name: NAMESPACE
+  required: true
+  value: test
