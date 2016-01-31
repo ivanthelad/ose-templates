@@ -129,4 +129,4 @@ parameters:
 - description:
   name: NAMESPACE
   required: true
-  value: test
+  value: builds
