@@ -16,5 +16,5 @@ to use,
  oc process deployer-template | oc create -f -
 
 # add pull rights to deploy project 
- oc policy add-role-to-group  system:image-puller system:serviceaccounts:builds -n deploys
+ oc policy add-role-to-group  system:image-puller system:serviceaccounts:deploys -n builds
  
